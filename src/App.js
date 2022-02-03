@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { renderRoutes } from 'react-router-config'
+import { Provider } from 'react-redux'
 
-function App() {
+import routes from './router'
+import store from './store'
+
+import ZMAppHeader from '@/components/app-header'
+import ZMAppFooter from '@/components/app-footer'
+// 播放器
+import AppPlayerBar from './pages/player/app-play-bar'
+import { HashRouter } from 'react-router-dom'
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <HashRouter>
+        {/* 头部导航 */}
+        <ZMAppHeader/>
+        {/* 路由展示 */}
+        {renderRoutes(routes)}
+        {/* 尾部组件 */}
+        <ZMAppFooter/>
+        {/* 播放器 */}
+        <AppPlayerBar/>
+      </HashRouter>
+    </Provider>
+  )
 }
-
-export default App;
